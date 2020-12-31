@@ -18,21 +18,21 @@ export class NotesComponent implements OnInit, AfterViewInit  {
 
   constructor() { }
 
-  // @ViewChild(MatPaginator) paginator: MatPaginator;
-  // @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   ngAfterViewInit() {
-    // this.dataSource.paginator = this.paginator;
-    // this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   ngOnInit(): void {
-    // this.dataSource = new MatTableDataSource<Note>(this.notes);
+    this.dataSource = new MatTableDataSource<Note>(this.notes);
   }
 
   applyFilter(event: Event) {
-    // const filterValue = (event.target as HTMLInputElement).value;
-    // this.dataSource.filter = filterValue.trim().toLowerCase();
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
 }
