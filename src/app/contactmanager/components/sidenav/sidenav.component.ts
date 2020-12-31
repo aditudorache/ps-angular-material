@@ -11,19 +11,30 @@ const SMALL_WIDTH_BREAKPOINT = 720;
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
-  styleUrls: ['./sidenav.component.scss'],
+  styleUrls: ['./sidenav.component.scss']
 })
 export class SidenavComponent implements OnInit {
+
   public isScreenSmall: boolean;
 
   users: Observable<User[]>;
+  isDarkTheme: boolean = false;
+  dir: string = 'ltr';
+
   constructor(
     private breakpointObserver: BreakpointObserver,
     private userService: UserService,
-    private router: Router
-  ) {}
+    private router: Router) { }
 
   @ViewChild(MatSidenav) sidenav: MatSidenav;
+
+  toggleTheme() {
+    this.isDarkTheme = !this.isDarkTheme;
+  }
+
+  toggleDir() {
+    this.dir = this.dir == 'ltr' ? 'rtl' : 'ltr';
+  }
 
   ngOnInit(): void {
     this.breakpointObserver
@@ -36,7 +47,10 @@ export class SidenavComponent implements OnInit {
     this.userService.loadAll();
 
     this.router.events.subscribe(() => {
-      if (this.isScreenSmall) this.sidenav.close();
+      if (this.isScreenSmall) {
+        this.sidenav.close();
+      }
     });
   }
+
 }
